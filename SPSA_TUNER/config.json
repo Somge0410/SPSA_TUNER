@@ -22,10 +22,10 @@
         "enabled": false
     },
     "opening": {
-        "file": "",
-        "format": 2,
-        "order": 1,
-        "plies": -1,
+        "file": "8moves_v3.pgn",
+        "format": 1,
+        "order": 0,
+        "plies": 16,
         "start": 1
     },
     "pgn": {
@@ -60,7 +60,7 @@
     },
     "config_name": "config.json",
     "output": 0,
-    "seed": 12997236522576062824,
+    "seed": 895441498358342939,
     "variant": 0,
     "type": 0,
     "gauntlet_seeds": 1,
@@ -69,22 +69,22 @@
     "wait": 0,
     "autosaveinterval": 20,
     "games": 2,
-    "rounds": 50,
-    "concurrency": 5,
+    "rounds": 500,
+    "concurrency": 6,
     "force_concurrency": false,
-    "recover": true,
+    "recover": false,
     "noswap": false,
     "reverse": false,
     "report_penta": true,
     "affinity": false,
     "show_latency": false,
     "log": {
-        "file": "",
-        "level": 2,
+        "file": "debug.log",
+        "level": 1,
         "append_file": true,
         "compress": false,
         "realtime": true,
-        "engine_coms": false
+        "engine_coms": true
     },
     "engines": [
         {
@@ -95,19 +95,71 @@
             "restart": false,
             "options": [
                 [
-                    "KingSafety",
-                    "95"
+                    "Threads",
+                    "1"
                 ],
                 [
-                    "PawnCenter",
-                    "35"
+                    "Hash",
+                    "128"
+                ],
+                [
+                    "RevFut",
+                    "153"
+                ],
+                [
+                    "RevFutDepth",
+                    "1"
+                ],
+                [
+                    "FutilityMarginD1",
+                    "840"
+                ],
+                [
+                    "FutilityMarginD2",
+                    "153"
+                ],
+                [
+                    "DeltaMargin",
+                    "540"
+                ],
+                [
+                    "MaxQuietPly",
+                    "10"
+                ],
+                [
+                    "LmrMinDepth",
+                    "6"
+                ],
+                [
+                    "LmrMinMoves",
+                    "3"
+                ],
+                [
+                    "LmrRedAm",
+                    "2"
+                ],
+                [
+                    "AspirationWindowInitial",
+                    "43"
+                ],
+                [
+                    "AspirationWindowMultiplier",
+                    "1"
+                ],
+                [
+                    "TimeAllocationDivisor",
+                    "51"
+                ],
+                [
+                    "MaxTimeFraction",
+                    "2"
                 ]
             ],
             "limit": {
                 "tc": {
-                    "increment": 100,
+                    "increment": 80,
                     "fixed_time": 0,
-                    "time": 10000,
+                    "time": 8000,
                     "moves": 0,
                     "timemargin": 0
                 },
@@ -124,19 +176,71 @@
             "restart": false,
             "options": [
                 [
-                    "KingSafety",
-                    "105"
+                    "Threads",
+                    "1"
                 ],
                 [
-                    "PawnCenter",
-                    "25"
+                    "Hash",
+                    "128"
+                ],
+                [
+                    "RevFut",
+                    "247"
+                ],
+                [
+                    "RevFutDepth",
+                    "3"
+                ],
+                [
+                    "FutilityMarginD1",
+                    "560"
+                ],
+                [
+                    "FutilityMarginD2",
+                    "247"
+                ],
+                [
+                    "DeltaMargin",
+                    "260"
+                ],
+                [
+                    "MaxQuietPly",
+                    "8"
+                ],
+                [
+                    "LmrMinDepth",
+                    "4"
+                ],
+                [
+                    "LmrMinMoves",
+                    "1"
+                ],
+                [
+                    "LmrRedAm",
+                    "1"
+                ],
+                [
+                    "AspirationWindowInitial",
+                    "81"
+                ],
+                [
+                    "AspirationWindowMultiplier",
+                    "3"
+                ],
+                [
+                    "TimeAllocationDivisor",
+                    "33"
+                ],
+                [
+                    "MaxTimeFraction",
+                    "1"
                 ]
             ],
             "limit": {
                 "tc": {
-                    "increment": 100,
+                    "increment": 80,
                     "fixed_time": 0,
-                    "time": 10000,
+                    "time": 8000,
                     "moves": 0,
                     "timemargin": 0
                 },
@@ -148,15 +252,15 @@
     ],
     "stats": {
         "Plus vs Minus": {
-            "wins": 0,
-            "losses": 0,
-            "draws": 0,
-            "penta_WW": 0,
-            "penta_WD": 0,
-            "penta_WL": 0,
-            "penta_DD": 0,
-            "penta_LD": 0,
-            "penta_LL": 0
+            "wins": 52,
+            "losses": 65,
+            "draws": 21,
+            "penta_WW": 9,
+            "penta_WD": 6,
+            "penta_WL": 28,
+            "penta_DD": 2,
+            "penta_LD": 11,
+            "penta_LL": 13
         }
     }
 }
