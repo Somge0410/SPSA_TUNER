@@ -60,7 +60,7 @@
     },
     "config_name": "config.json",
     "output": 0,
-    "seed": 895441498358342939,
+    "seed": 9981021450696314922,
     "variant": 0,
     "type": 0,
     "gauntlet_seeds": 1,
@@ -104,23 +104,23 @@
                 ],
                 [
                     "RevFut",
-                    "153"
+                    "215"
                 ],
                 [
                     "RevFutDepth",
-                    "1"
+                    "3"
                 ],
                 [
                     "FutilityMarginD1",
-                    "840"
+                    "528"
                 ],
                 [
                     "FutilityMarginD2",
-                    "153"
+                    "140"
                 ],
                 [
                     "DeltaMargin",
-                    "540"
+                    "550"
                 ],
                 [
                     "MaxQuietPly",
@@ -128,7 +128,7 @@
                 ],
                 [
                     "LmrMinDepth",
-                    "6"
+                    "4"
                 ],
                 [
                     "LmrMinMoves",
@@ -136,19 +136,19 @@
                 ],
                 [
                     "LmrRedAm",
-                    "2"
-                ],
-                [
-                    "AspirationWindowInitial",
-                    "43"
-                ],
-                [
-                    "AspirationWindowMultiplier",
                     "1"
                 ],
                 [
+                    "AspirationWindowInitial",
+                    "42"
+                ],
+                [
+                    "AspirationWindowMultiplier",
+                    "3"
+                ],
+                [
                     "TimeAllocationDivisor",
-                    "51"
+                    "47"
                 ],
                 [
                     "MaxTimeFraction",
@@ -185,23 +185,23 @@
                 ],
                 [
                     "RevFut",
-                    "247"
+                    "115"
                 ],
                 [
                     "RevFutDepth",
-                    "3"
+                    "1"
                 ],
                 [
                     "FutilityMarginD1",
-                    "560"
+                    "828"
                 ],
                 [
                     "FutilityMarginD2",
-                    "247"
+                    "240"
                 ],
                 [
                     "DeltaMargin",
-                    "260"
+                    "250"
                 ],
                 [
                     "MaxQuietPly",
@@ -209,7 +209,7 @@
                 ],
                 [
                     "LmrMinDepth",
-                    "4"
+                    "6"
                 ],
                 [
                     "LmrMinMoves",
@@ -217,19 +217,19 @@
                 ],
                 [
                     "LmrRedAm",
-                    "1"
+                    "2"
                 ],
                 [
                     "AspirationWindowInitial",
-                    "81"
+                    "82"
                 ],
                 [
                     "AspirationWindowMultiplier",
-                    "3"
+                    "1"
                 ],
                 [
                     "TimeAllocationDivisor",
-                    "33"
+                    "27"
                 ],
                 [
                     "MaxTimeFraction",
@@ -252,15 +252,15 @@
     ],
     "stats": {
         "Plus vs Minus": {
-            "wins": 52,
-            "losses": 65,
-            "draws": 21,
-            "penta_WW": 9,
-            "penta_WD": 6,
-            "penta_WL": 28,
-            "penta_DD": 2,
-            "penta_LD": 11,
-            "penta_LL": 13
+            "wins": 242,
+            "losses": 252,
+            "draws": 166,
+            "penta_WW": 45,
+            "penta_WD": 54,
+            "penta_WL": 98,
+            "penta_DD": 24,
+            "penta_LD": 64,
+            "penta_LL": 45
         }
     }
 }

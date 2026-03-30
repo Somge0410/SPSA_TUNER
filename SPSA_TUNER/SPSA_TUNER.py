@@ -15,25 +15,28 @@ MAX_ITERATION=100              # Anzahl der SPSA-Iterationen
 
 # Die zu optimierenden Parameter mit Startwerten
 params = {
-    "RevFut": {"value":200.0, "rate":25000, "change":50.0, "min": 0, "max": 500},
+    "RevFut": {"value":165.0, "rate":60000, "change":50.0, "min": 0, "max": 500},
     "RevFutDepth": {"value":2.0, "rate":2.0, "change":1.0, "min": 1, "max": 20},
-    "FutilityMarginD1": {"value":700.0, "rate":150000, "change":150.0, "min": 0, "max": 1000},
-    "FutilityMarginD2": {"value":200.0, "rate":25000, "change":50.0, "min": 0, "max": 1000},
-    "DeltaMargin": {"value":400.0, "rate":0.8, "change":150.0, "min": 0, "max": 1000},
-    "MaxQuietPly": {"value":9.0, "rate":2.0, "change":1.0, "min": 1, "max": 20},
-    "LmrMinDepth": {"value":5.0, "rate":2.0, "change":1.0, "min": 1, "max": 10},
-    "LmrMinMoves": {"value":2.0, "rate":2.0, "change":1.0, "min": 1, "max": 10},
-    "LmrRedAm": {"value":1.0, "rate":2.0, "change":1.0, "min": 1, "max": 10}, # Prevents the 0 crash!
+    "FutilityMarginD1": {"value":678.0, "rate":1900000, "change":150.0, "min": 0, "max": 1000},
+    "FutilityMarginD2": {"value":190.0, "rate":250000, "change":50.0, "min": 0, "max": 1000},
+    "DeltaMargin": {"value":400.0, "rate":75000, "change":150.0, "min": 0, "max": 1000},
+    "MaxQuietPly": {"value":9.0, "rate":50.0, "change":1.0, "min": 1, "max": 20},
+    "LmrMinDepth": {"value":5.0, "rate":50.0, "change":1.0, "min": 1, "max": 10},
+    "LmrMinMoves": {"value":2.0, "rate":50.0, "change":1.0, "min": 1, "max": 10},
+    "LmrRedAm": {"value":1.0, "rate":50.0, "change":1.0, "min": 1, "max": 10}, # Prevents the 0 crash!
     #"NmpReduction": {"value":3.0, "rate":2.0, "change":1.0, "min": 1, "max": 10},
-    "AspirationWindowInitial": {"value":62.0, "rate":2000, "change":20.0, "min": 1, "max": 500},
-    "AspirationWindowMultiplier": {"value":1.75, "rate":0.5, "change":0.25, "min": 1, "max": 10.0},
-    "TimeAllocationDivisor": {"value":42.0, "rate":600, "change":10.0, "min": 1, "max": 100},
-    "MaxTimeFraction": {"value":1.5, "rate":2.0, "change":0.5, "min": 1.0, "max": 10.0},
+    "AspirationWindowInitial": {"value":62.0, "rate":6000, "change":20.0, "min": 1, "max": 500},
+    "AspirationWindowMultiplier": {"value":1.75, "rate":15, "change":0.25, "min": 1, "max": 10.0},
+    "TimeAllocationDivisor": {"value":37.0, "rate":3000, "change":10.0, "min": 1, "max": 100},
+    "MaxTimeFraction": {"value":1.5, "rate":10.0, "change":0.5, "min": 1.0, "max": 10.0},
 }
 
 def play_match(params_plus, params_minus):
     """Startet fastchess, lässt die Varianten spielen und gibt die Win-Rate zurück."""
     
+    print("Starte Match")
+    print("Plus Parameters", {k: v for k,v in params_plus.items()})
+    print("Minus Parameters", {k: v for k,v in params_minus.items()})
     # 1. Befehlsliste für den fastchess-Aufruf zusammenbauen
     cmd = [FASTCHESS_CMD]
     
@@ -157,6 +160,6 @@ for iteration in range(1, MAX_ITERATION): # Wir machen als Beispiel 100 Iteratio
     for key in params.keys():
         # Parameter in die Richtung anpassen, die erfolgreicher war
         params[key]["value"] += (current_learning_rate[key]* gradient_step* deltas[key])/(effective_change[key])
-        
+     
     # Aktuellen Stand formatiert ausgeben
     print("Neue Parameter:", {k: round(v["value"], 2) for k, v in params.items()})
