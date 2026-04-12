@@ -5,6 +5,10 @@ from math import floor
 import subprocess
 import random
 import re
+import json
+import signal
+import sys
+import os
 
 # --- Konfiguration ---
 FASTCHESS_CMD = "./fastchess"   # Pfad zur fastchess-Ausführungsdatei
@@ -30,6 +34,48 @@ params = {
     "TimeAllocationDivisor": {"value":37.0, "rate":3000, "change":10.0, "min": 1, "max": 100},
     "MaxTimeFraction": {"value":1.5, "rate":10.0, "change":0.5, "min": 1.0, "max": 10.0},
 }
+
+# --- Checkpoint handling ---
+CHECKPOINT_FILE = "spsa_checkpoint.json"
+
+def save_checkpoint(iteration, params):
+    """Save current tuning state to file for resuming later."""
+    checkpoint = {
+        "iteration": iteration,
+        "params": {k: {"value": v["value"], "rate": v["rate"], "change": v["change"], "min": v["min"], "max": v["max"]} 
+                   for k, v in params.items()}
+    }
+    with open(CHECKPOINT_FILE, 'w') as f:
+        json.dump(checkpoint, f, indent=2)
+    print(f"[Checkpoint] Saved state at iteration {iteration}")
+
+def load_checkpoint():
+    """Load previous tuning state if it exists."""
+    if not os.path.exists(CHECKPOINT_FILE):
+        return None, 1
+    
+    try:
+        with open(CHECKPOINT_FILE, 'r') as f:
+            checkpoint = json.load(f)
+        iteration = checkpoint["iteration"]
+        loaded_params = checkpoint["params"]
+        
+        # Restore params from checkpoint
+        for key in params.keys():
+            if key in loaded_params:
+                params[key]["value"] = loaded_params[key]["value"]
+        
+        print(f"[Checkpoint] Loaded previous state from iteration {iteration}")
+        print(f"[Checkpoint] Resuming from iteration {iteration + 1}")
+        return params, iteration + 1
+    except Exception as e:
+        print(f"[Checkpoint] Error loading checkpoint: {e}")
+        return None, 1
+
+def signal_handler(signum, frame):
+    """Handle Ctrl+C to gracefully save and exit."""
+    print("\n[SIGNAL] Received interrupt signal. Saving state and exiting...")
+    sys.exit(0)
 
 def play_match(params_plus, params_minus):
     """Startet fastchess, lässt die Varianten spielen und gibt die Win-Rate zurück."""
@@ -114,52 +160,74 @@ def play_match(params_plus, params_minus):
     
     return (win_rate, H1H)
 
-for iteration in range(1, MAX_ITERATION): # Wir machen als Beispiel 100 Iterationen
-    print(f"\n--- Iteration {iteration} ---")
+# --- Main execution ---
+if __name__ == "__main__":
+    # Set up signal handler for graceful cancellation
+    signal.signal(signal.SIGINT, signal_handler)
     
-    # 1. Zufälliges Delta erzeugen (Entweder +1 oder -1 für jeden Parameter)
-    deltas = {k: random.choice([-1, 1]) for k in params.keys()}
-    params_plus = {}
-    params_minus={}
-    effective_change={}
-    for key, v in params.items():
-        c_current=v["change"]/(iteration**0.101)
-        plus_float=v["value"]+(c_current*deltas[key])
-        minus_float=v["value"]-(c_current*deltas[key])
-
-        plus_int=round(plus_float)
-        minus_int=round(minus_float)
-
-        plus_int=max(v["min"], min(v["max"], plus_int))
-        minus_int=max(v["min"], min(v["max"], minus_int))
-        if(plus_int==minus_int):
-            if deltas[key]==1:
-                if plus_int<v["max"]:
-                    plus_int+=1
-                if minus_int>v["min"]:
-                    minus_int-=1
-            else:
-                if plus_int>v["min"]:
-                    plus_int-=1
-                if minus_int<v["max"]:
-                    minus_int+=1
-        params_plus[key]=plus_int
-        params_minus[key]=minus_int
-
-        effective_change[key]=abs(plus_int-minus_int)/2.0
-     
-    # 3. Match spielen lassen
-    score, hypothesis = play_match(params_plus, params_minus)
-    print(f"Score für Plus: {score:.3f}")
+    # Load checkpoint if it exists
+    loaded_params, start_iteration = load_checkpoint()
     
-    # 4. Gradient schätzen und Parameter updaten
-    # Wenn Score > 0.5 (Plus hat gewonnen), ist der Gradient positiv.
-    gradient_step = score-0.5
-    current_learning_rate={key: params[key]["rate"]/((MAX_ITERATION/10+iteration)**0.602) for key in params.keys()}
+    try:
+        for iteration in range(start_iteration, MAX_ITERATION): # Wir machen als Beispiel 100 Iterationen
+            print(f"\n--- Iteration {iteration} ---")
+            
+            # 1. Zufälliges Delta erzeugen (Entweder +1 oder -1 für jeden Parameter)
+            deltas = {k: random.choice([-1, 1]) for k in params.keys()}
+            params_plus = {}
+            params_minus={}
+            effective_change={}
+            for key, v in params.items():
+                c_current=v["change"]/(iteration**0.101)
+                plus_float=v["value"]+(c_current*deltas[key])
+                minus_float=v["value"]-(c_current*deltas[key])
 
-    for key in params.keys():
-        # Parameter in die Richtung anpassen, die erfolgreicher war
-        params[key]["value"] += (current_learning_rate[key]* gradient_step* deltas[key])/(effective_change[key])
-     
-    # Aktuellen Stand formatiert ausgeben
-    print("Neue Parameter:", {k: round(v["value"], 2) for k, v in params.items()})
+                plus_int=round(plus_float)
+                minus_int=round(minus_float)
+
+                plus_int=max(v["min"], min(v["max"], plus_int))
+                minus_int=max(v["min"], min(v["max"], minus_int))
+                if(plus_int==minus_int):
+                    if deltas[key]==1:
+                        if plus_int<v["max"]:
+                            plus_int+=1
+                        if minus_int>v["min"]:
+                            minus_int-=1
+                    else:
+                        if plus_int>v["min"]:
+                            plus_int-=1
+                        if minus_int<v["max"]:
+                            minus_int+=1
+                params_plus[key]=plus_int
+                params_minus[key]=minus_int
+
+                effective_change[key]=abs(plus_int-minus_int)/2.0
+            
+            # 3. Match spielen lassen
+            score, hypothesis = play_match(params_plus, params_minus)
+            print(f"Score für Plus: {score:.3f}")
+            
+            # 4. Gradient schätzen und Parameter updaten
+            # Wenn Score > 0.5 (Plus hat gewonnen), ist der Gradient positiv.
+            gradient_step = score-0.5
+            current_learning_rate={key: params[key]["rate"]/((MAX_ITERATION/10+iteration)**0.602) for key in params.keys()}
+
+            for key in params.keys():
+                # Parameter in die Richtung anpassen, die erfolgreicher war
+                params[key]["value"] += (current_learning_rate[key]* gradient_step* deltas[key])/(effective_change[key])
+            
+            # Aktuellen Stand formatiert ausgeben
+            print("Neue Parameter:", {k: round(v["value"], 2) for k, v in params.items()})
+            
+            # Save checkpoint after each iteration
+            save_checkpoint(iteration, params)
+    
+    except KeyboardInterrupt:
+        print("\n[INTERRUPTED] Saving checkpoint before exit...")
+        save_checkpoint(iteration, params)
+        print("[INTERRUPTED] State saved. You can resume by running the script again.")
+        sys.exit(0)
+    
+    finally:
+        print("\n[COMPLETED] Tuning finished!")
+        print("Final Parameters:", {k: round(v["value"], 2) for k, v in params.items()})

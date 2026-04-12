@@ -60,7 +60,7 @@
     },
     "config_name": "config.json",
     "output": 0,
-    "seed": 9981021450696314922,
+    "seed": 14286774748844208245,
     "variant": 0,
     "type": 0,
     "gauntlet_seeds": 1,
@@ -108,7 +108,7 @@
                 ],
                 [
                     "RevFutDepth",
-                    "3"
+                    "1"
                 ],
                 [
                     "FutilityMarginD1",
@@ -116,7 +116,7 @@
                 ],
                 [
                     "FutilityMarginD2",
-                    "140"
+                    "240"
                 ],
                 [
                     "DeltaMargin",
@@ -132,11 +132,11 @@
                 ],
                 [
                     "LmrMinMoves",
-                    "3"
+                    "1"
                 ],
                 [
                     "LmrRedAm",
-                    "1"
+                    "2"
                 ],
                 [
                     "AspirationWindowInitial",
@@ -144,7 +144,7 @@
                 ],
                 [
                     "AspirationWindowMultiplier",
-                    "3"
+                    "1"
                 ],
                 [
                     "TimeAllocationDivisor",
@@ -152,7 +152,7 @@
                 ],
                 [
                     "MaxTimeFraction",
-                    "2"
+                    "1"
                 ]
             ],
             "limit": {
@@ -189,7 +189,7 @@
                 ],
                 [
                     "RevFutDepth",
-                    "1"
+                    "3"
                 ],
                 [
                     "FutilityMarginD1",
@@ -197,7 +197,7 @@
                 ],
                 [
                     "FutilityMarginD2",
-                    "240"
+                    "140"
                 ],
                 [
                     "DeltaMargin",
@@ -213,11 +213,11 @@
                 ],
                 [
                     "LmrMinMoves",
-                    "1"
+                    "3"
                 ],
                 [
                     "LmrRedAm",
-                    "2"
+                    "1"
                 ],
                 [
                     "AspirationWindowInitial",
@@ -225,7 +225,7 @@
                 ],
                 [
                     "AspirationWindowMultiplier",
-                    "1"
+                    "3"
                 ],
                 [
                     "TimeAllocationDivisor",
@@ -233,7 +233,7 @@
                 ],
                 [
                     "MaxTimeFraction",
-                    "1"
+                    "2"
                 ]
             ],
             "limit": {
@@ -252,15 +252,15 @@
     ],
     "stats": {
         "Plus vs Minus": {
-            "wins": 242,
-            "losses": 252,
-            "draws": 166,
-            "penta_WW": 45,
-            "penta_WD": 54,
-            "penta_WL": 98,
-            "penta_DD": 24,
-            "penta_LD": 64,
-            "penta_LL": 45
+            "wins": 86,
+            "losses": 63,
+            "draws": 51,
+            "penta_WW": 16,
+            "penta_WD": 21,
+            "penta_WL": 33,
+            "penta_DD": 8,
+            "penta_LD": 14,
+            "penta_LL": 8
         }
     }
 }
