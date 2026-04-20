@@ -9,6 +9,9 @@ import json
 import signal
 import sys
 import os
+import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use('Agg')  # Use non-interactive backend
 
 # --- Konfiguration ---
 FASTCHESS_CMD = "./fastchess"   # Pfad zur fastchess-Ausführungsdatei
@@ -37,6 +40,15 @@ params = {
 
 # --- Checkpoint handling ---
 CHECKPOINT_FILE = "spsa_checkpoint.json"
+GRAPH_FILE = "parameter_progress.png"
+HISTORY_FILE = "parameter_history.json"
+
+# Store original parameter values for percentage calculation
+original_params = {k: v["value"] for k, v in params.items()}
+
+# Dictionary to track parameter history across iterations
+param_history = {k: [] for k in params.keys()}
+iterations_list = []  # Track iteration numbers
 
 def save_checkpoint(iteration, params):
     """Save current tuning state to file for resuming later."""
@@ -72,9 +84,93 @@ def load_checkpoint():
         print(f"[Checkpoint] Error loading checkpoint: {e}")
         return None, 1
 
+def load_history():
+    """Load parameter history if it exists."""
+    global param_history, iterations_list, original_params
+    
+    if not os.path.exists(HISTORY_FILE):
+        return
+    
+    try:
+        with open(HISTORY_FILE, 'r') as f:
+            data = json.load(f)
+        param_history = data.get("history", {k: [] for k in params.keys()})
+        iterations_list = data.get("iterations", [])
+        original_params = data.get("original_params", original_params)
+        print(f"[History] Loaded parameter history with {len(iterations_list)} iterations")
+    except Exception as e:
+        print(f"[History] Error loading history: {e}")
+
+def save_history():
+    """Save parameter history to file."""
+    try:
+        history_data = {
+            "history": param_history,
+            "iterations": iterations_list,
+            "original_params": original_params
+        }
+        with open(HISTORY_FILE, 'w') as f:
+            json.dump(history_data, f, indent=2)
+    except Exception as e:
+        print(f"[History] Error saving history: {e}")
+
+def update_graph():
+    """Update and save the parameter progress graph."""
+    if not iterations_list:
+        return
+    
+    try:
+        plt.close('all')
+        fig, ax = plt.subplots(figsize=(14, 8))
+        
+        # Plot each parameter as percentage change from original
+        for param_name in params.keys():
+            if param_name in param_history and len(param_history[param_name]) > 0:
+                percentages = [
+                    ((value - original_params[param_name]) / original_params[param_name] * 100)
+                    for value in param_history[param_name]
+                ]
+                ax.plot(iterations_list, percentages, marker='o', label=param_name, linewidth=2)
+        
+        ax.set_xlabel('Iteration', fontsize=12, fontweight='bold')
+        ax.set_ylabel('% Change from Original Value', fontsize=12, fontweight='bold')
+        ax.set_title('SPSA Parameter Optimization Progress', fontsize=14, fontweight='bold')
+        ax.grid(True, alpha=0.3)
+        ax.legend(bbox_to_anchor=(1.05, 1), loc='upper left', fontsize=9)
+        ax.axhline(y=0, color='black', linestyle='--', linewidth=0.8, alpha=0.5)
+        
+        plt.tight_layout()
+        plt.savefig(GRAPH_FILE, dpi=100, bbox_inches='tight')
+        print(f"[Graph] Updated graph saved to {GRAPH_FILE}")
+        
+    except Exception as e:
+        print(f"[Graph] Error updating graph: {e}")
+
+def display_graph():
+    """Display the saved parameter progress graph."""
+    try:
+        if os.path.exists(GRAPH_FILE):
+            import platform
+            if platform.system() == 'Windows':
+                os.startfile(GRAPH_FILE)
+            elif platform.system() == 'Darwin':  # macOS
+                os.system(f'open {GRAPH_FILE}')
+            else:  # Linux
+                os.system(f'xdg-open {GRAPH_FILE}')
+            print(f"[Graph] Opening {GRAPH_FILE}") 
+        else:
+            print(f"[Graph] Graph file not found: {GRAPH_FILE}")
+    except Exception as e:
+        print(f"[Graph] Error displaying graph: {e}")
+
 def signal_handler(signum, frame):
     """Handle Ctrl+C to gracefully save and exit."""
     print("\n[SIGNAL] Received interrupt signal. Saving state and exiting...")
+    global iteration
+    if 'iteration' in globals():
+        save_checkpoint(iteration, params)
+        save_history()
+    display_graph()
     sys.exit(0)
 
 def play_match(params_plus, params_minus):
@@ -168,6 +264,9 @@ if __name__ == "__main__":
     # Load checkpoint if it exists
     loaded_params, start_iteration = load_checkpoint()
     
+    # Load parameter history if it exists
+    load_history()
+    
     try:
         for iteration in range(start_iteration, MAX_ITERATION): # Wir machen als Beispiel 100 Iterationen
             print(f"\n--- Iteration {iteration} ---")
@@ -219,15 +318,28 @@ if __name__ == "__main__":
             # Aktuellen Stand formatiert ausgeben
             print("Neue Parameter:", {k: round(v["value"], 2) for k, v in params.items()})
             
-            # Save checkpoint after each iteration
+            # Track parameter history
+            iterations_list.append(iteration)
+            for param_name in params.keys():
+                param_history[param_name].append(params[param_name]["value"])
+            
+            # Update graph after each iteration
+            update_graph()
+            
+            # Save checkpoint and history after each iteration
             save_checkpoint(iteration, params)
+            save_history()
     
     except KeyboardInterrupt:
-        print("\n[INTERRUPTED] Saving checkpoint before exit...")
+        print("\n[INTERRUPTED] Saving checkpoint and history before exit...")
         save_checkpoint(iteration, params)
+        save_history()
+        update_graph()
         print("[INTERRUPTED] State saved. You can resume by running the script again.")
+        display_graph()
         sys.exit(0)
     
     finally:
         print("\n[COMPLETED] Tuning finished!")
         print("Final Parameters:", {k: round(v["value"], 2) for k, v in params.items()})
+        display_graph()

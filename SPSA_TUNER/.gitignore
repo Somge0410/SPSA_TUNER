@@ -1,0 +1,38 @@
+# Virtual Environments
+.venv/
+venv/
+env/
+
+# Python Cache
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# IDE and Editor Files
+.vscode/
+.idea/
+*.pyproj
+*.sln
+
+# Executables (engine and fastchess binaries)
+fastchess.exe
+myengine.exe
+my_engine.exe
+fastchess
+myengine
+my_engine
+
+# Debug and Log Files
+debug.log
+*.log
+
+# PGN Game Files (can be large)
+*.pgn
+
+# Checkpoint File (resume state - optional)
+# Uncomment to ignore: spsa_checkpoint.json
+
+# Keep Only Graph Data
+# parameter_progress.png (tracked)
+# parameter_history.json (tracked)

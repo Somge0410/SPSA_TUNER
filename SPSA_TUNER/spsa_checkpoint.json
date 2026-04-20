@@ -1,0 +1,96 @@
+{
+  "iteration": 45,
+  "params": {
+    "RevFut": {
+      "value": 255.60497212715703,
+      "rate": 60000,
+      "change": 50.0,
+      "min": 0,
+      "max": 500
+    },
+    "RevFutDepth": {
+      "value": 2.0129833229288696,
+      "rate": 2.0,
+      "change": 1.0,
+      "min": 1,
+      "max": 20
+    },
+    "FutilityMarginD1": {
+      "value": 229.9053226806672,
+      "rate": 1900000,
+      "change": 150.0,
+      "min": 0,
+      "max": 1000
+    },
+    "FutilityMarginD2": {
+      "value": 123.08041230542571,
+      "rate": 250000,
+      "change": 50.0,
+      "min": 0,
+      "max": 1000
+    },
+    "DeltaMargin": {
+      "value": 351.8529930092309,
+      "rate": 75000,
+      "change": 150.0,
+      "min": 0,
+      "max": 1000
+    },
+    "MaxQuietPly": {
+      "value": 11.350073026600482,
+      "rate": 50.0,
+      "change": 1.0,
+      "min": 1,
+      "max": 20
+    },
+    "LmrMinDepth": {
+      "value": 5.225478472373785,
+      "rate": 50.0,
+      "change": 1.0,
+      "min": 1,
+      "max": 10
+    },
+    "LmrMinMoves": {
+      "value": 6.159627955647935,
+      "rate": 50.0,
+      "change": 1.0,
+      "min": 1,
+      "max": 10
+    },
+    "LmrRedAm": {
+      "value": 0.9738395839332019,
+      "rate": 50.0,
+      "change": 1.0,
+      "min": 1,
+      "max": 10
+    },
+    "AspirationWindowInitial": {
+      "value": 67.30990287016343,
+      "rate": 6000,
+      "change": 20.0,
+      "min": 1,
+      "max": 500
+    },
+    "AspirationWindowMultiplier": {
+      "value": 1.5751035152531576,
+      "rate": 15,
+      "change": 0.25,
+      "min": 1,
+      "max": 10.0
+    },
+    "TimeAllocationDivisor": {
+      "value": 29.040376925713,
+      "rate": 3000,
+      "change": 10.0,
+      "min": 1,
+      "max": 100
+    },
+    "MaxTimeFraction": {
+      "value": 0.9895622519226921,
+      "rate": 10.0,
+      "change": 0.5,
+      "min": 1.0,
+      "max": 10.0
+    }
+  }
+}

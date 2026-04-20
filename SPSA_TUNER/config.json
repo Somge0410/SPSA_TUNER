@@ -60,7 +60,7 @@
     },
     "config_name": "config.json",
     "output": 0,
-    "seed": 14286774748844208245,
+    "seed": 16079769258166482163,
     "variant": 0,
     "type": 0,
     "gauntlet_seeds": 1,
@@ -104,7 +104,7 @@
                 ],
                 [
                     "RevFut",
-                    "215"
+                    "290"
                 ],
                 [
                     "RevFutDepth",
@@ -112,35 +112,35 @@
                 ],
                 [
                     "FutilityMarginD1",
-                    "528"
+                    "128"
                 ],
                 [
                     "FutilityMarginD2",
-                    "240"
+                    "157"
                 ],
                 [
                     "DeltaMargin",
-                    "550"
+                    "250"
                 ],
                 [
                     "MaxQuietPly",
-                    "10"
+                    "12"
                 ],
                 [
                     "LmrMinDepth",
-                    "4"
+                    "6"
                 ],
                 [
                     "LmrMinMoves",
-                    "1"
+                    "7"
                 ],
                 [
                     "LmrRedAm",
-                    "2"
+                    "1"
                 ],
                 [
                     "AspirationWindowInitial",
-                    "42"
+                    "81"
                 ],
                 [
                     "AspirationWindowMultiplier",
@@ -148,7 +148,7 @@
                 ],
                 [
                     "TimeAllocationDivisor",
-                    "47"
+                    "36"
                 ],
                 [
                     "MaxTimeFraction",
@@ -185,7 +185,7 @@
                 ],
                 [
                     "RevFut",
-                    "115"
+                    "222"
                 ],
                 [
                     "RevFutDepth",
@@ -193,43 +193,43 @@
                 ],
                 [
                     "FutilityMarginD1",
-                    "828"
+                    "332"
                 ],
                 [
                     "FutilityMarginD2",
-                    "140"
+                    "89"
                 ],
                 [
                     "DeltaMargin",
-                    "250"
+                    "454"
                 ],
                 [
                     "MaxQuietPly",
-                    "8"
+                    "11"
                 ],
                 [
                     "LmrMinDepth",
-                    "6"
+                    "5"
                 ],
                 [
                     "LmrMinMoves",
-                    "3"
+                    "5"
                 ],
                 [
                     "LmrRedAm",
-                    "1"
+                    "2"
                 ],
                 [
                     "AspirationWindowInitial",
-                    "82"
+                    "54"
                 ],
                 [
                     "AspirationWindowMultiplier",
-                    "3"
+                    "2"
                 ],
                 [
                     "TimeAllocationDivisor",
-                    "27"
+                    "22"
                 ],
                 [
                     "MaxTimeFraction",
@@ -252,15 +252,15 @@
     ],
     "stats": {
         "Plus vs Minus": {
-            "wins": 86,
-            "losses": 63,
-            "draws": 51,
-            "penta_WW": 16,
-            "penta_WD": 21,
-            "penta_WL": 33,
-            "penta_DD": 8,
-            "penta_LD": 14,
-            "penta_LL": 8
+            "wins": 23,
+            "losses": 22,
+            "draws": 15,
+            "penta_WW": 5,
+            "penta_WD": 6,
+            "penta_WL": 7,
+            "penta_DD": 0,
+            "penta_LD": 9,
+            "penta_LL": 3
         }
     }
 }
