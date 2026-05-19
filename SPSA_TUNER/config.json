@@ -60,7 +60,7 @@
     },
     "config_name": "config.json",
     "output": 0,
-    "seed": 16079769258166482163,
+    "seed": 14312488689859833847,
     "variant": 0,
     "type": 0,
     "gauntlet_seeds": 1,
@@ -69,8 +69,8 @@
     "wait": 0,
     "autosaveinterval": 20,
     "games": 2,
-    "rounds": 500,
-    "concurrency": 6,
+    "rounds": 2,
+    "concurrency": 5,
     "force_concurrency": false,
     "recover": false,
     "noswap": false,
@@ -90,7 +90,7 @@
         {
             "name": "Plus",
             "dir": "",
-            "cmd": "./myengine",
+            "cmd": "./tryFutPrun",
             "args": "",
             "restart": false,
             "options": [
@@ -103,56 +103,16 @@
                     "128"
                 ],
                 [
-                    "RevFut",
-                    "290"
-                ],
-                [
-                    "RevFutDepth",
-                    "1"
-                ],
-                [
                     "FutilityMarginD1",
-                    "128"
+                    "283"
                 ],
                 [
                     "FutilityMarginD2",
-                    "157"
+                    "261"
                 ],
                 [
-                    "DeltaMargin",
-                    "250"
-                ],
-                [
-                    "MaxQuietPly",
-                    "12"
-                ],
-                [
-                    "LmrMinDepth",
-                    "6"
-                ],
-                [
-                    "LmrMinMoves",
-                    "7"
-                ],
-                [
-                    "LmrRedAm",
-                    "1"
-                ],
-                [
-                    "AspirationWindowInitial",
-                    "81"
-                ],
-                [
-                    "AspirationWindowMultiplier",
-                    "1"
-                ],
-                [
-                    "TimeAllocationDivisor",
-                    "36"
-                ],
-                [
-                    "MaxTimeFraction",
-                    "1"
+                    "FutilityMarginD3",
+                    "804"
                 ]
             ],
             "limit": {
@@ -171,7 +131,7 @@
         {
             "name": "Minus",
             "dir": "",
-            "cmd": "./myengine",
+            "cmd": "./tryFutPrun",
             "args": "",
             "restart": false,
             "options": [
@@ -184,56 +144,16 @@
                     "128"
                 ],
                 [
-                    "RevFut",
-                    "222"
-                ],
-                [
-                    "RevFutDepth",
-                    "3"
-                ],
-                [
                     "FutilityMarginD1",
-                    "332"
+                    "107"
                 ],
                 [
                     "FutilityMarginD2",
-                    "89"
+                    "524"
                 ],
                 [
-                    "DeltaMargin",
-                    "454"
-                ],
-                [
-                    "MaxQuietPly",
-                    "11"
-                ],
-                [
-                    "LmrMinDepth",
-                    "5"
-                ],
-                [
-                    "LmrMinMoves",
-                    "5"
-                ],
-                [
-                    "LmrRedAm",
-                    "2"
-                ],
-                [
-                    "AspirationWindowInitial",
-                    "54"
-                ],
-                [
-                    "AspirationWindowMultiplier",
-                    "2"
-                ],
-                [
-                    "TimeAllocationDivisor",
-                    "22"
-                ],
-                [
-                    "MaxTimeFraction",
-                    "2"
+                    "FutilityMarginD3",
+                    "395"
                 ]
             ],
             "limit": {
@@ -252,15 +172,15 @@
     ],
     "stats": {
         "Plus vs Minus": {
-            "wins": 23,
-            "losses": 22,
-            "draws": 15,
-            "penta_WW": 5,
-            "penta_WD": 6,
-            "penta_WL": 7,
+            "wins": 0,
+            "losses": 0,
+            "draws": 0,
+            "penta_WW": 0,
+            "penta_WD": 0,
+            "penta_WL": 0,
             "penta_DD": 0,
-            "penta_LD": 9,
-            "penta_LL": 3
+            "penta_LD": 0,
+            "penta_LL": 0
         }
     }
 }

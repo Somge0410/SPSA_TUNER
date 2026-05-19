@@ -15,27 +15,28 @@ matplotlib.use('Agg')  # Use non-interactive backend
 
 # --- Konfiguration ---
 FASTCHESS_CMD = "./fastchess"   # Pfad zur fastchess-Ausführungsdatei
-ENGINE_CMD = "./myengine"       # Pfad zu deiner C++ Engine
-ROUNDS = 500                     # 100 Runden mit -repeat = 100 Spiele pro Iteration
-CONCURRENCY = 6                 # Anzahl der CPU-Kerne für die Matches
-MAX_ITERATION=100              # Anzahl der SPSA-Iterationen
+ENGINE_CMD = "./tryFutPrun"       # Pfad zu deiner C++ Engine
+ROUNDS = 2                     # 100 Runden mit -repeat = 100 Spiele pro Iteration
+CONCURRENCY = 5                 # Anzahl der CPU-Kerne für die Matches
+MAX_ITERATION=10000              # Anzahl der SPSA-Iterationen
 
 # Die zu optimierenden Parameter mit Startwerten
 params = {
-    "RevFut": {"value":165.0, "rate":60000, "change":50.0, "min": 0, "max": 500},
-    "RevFutDepth": {"value":2.0, "rate":2.0, "change":1.0, "min": 1, "max": 20},
-    "FutilityMarginD1": {"value":678.0, "rate":1900000, "change":150.0, "min": 0, "max": 1000},
-    "FutilityMarginD2": {"value":190.0, "rate":250000, "change":50.0, "min": 0, "max": 1000},
-    "DeltaMargin": {"value":400.0, "rate":75000, "change":150.0, "min": 0, "max": 1000},
-    "MaxQuietPly": {"value":9.0, "rate":50.0, "change":1.0, "min": 1, "max": 20},
-    "LmrMinDepth": {"value":5.0, "rate":50.0, "change":1.0, "min": 1, "max": 10},
-    "LmrMinMoves": {"value":2.0, "rate":50.0, "change":1.0, "min": 1, "max": 10},
-    "LmrRedAm": {"value":1.0, "rate":50.0, "change":1.0, "min": 1, "max": 10}, # Prevents the 0 crash!
+    #"RevFut": {"value":165.0, "rate":60000, "change":50.0, "min": 0, "max": 500},
+    #"RevFutDepth": {"value":2.0, "rate":2.0, "change":1.0, "min": 1, "max": 20},
+    "FutilityMarginD1": {"value":200, "rate":35000, "change":150.0, "min": 0, "max": 10000},
+    "FutilityMarginD2": {"value":400.0, "rate":60000, "change":225.0, "min": 0, "max": 10000},
+    "FutilityMarginD3": {"value":600.0, "rate":75000, "change":350.0, "min": 0, "max": 10000},
+    #"DeltaMargin": {"value":400.0, "rate":75000, "change":150.0, "min": 0, "max": 1000},
+    #"MaxQuietPly": {"value":9.0, "rate":50.0, "change":1.0, "min": 1, "max": 20},
+    #"LmrMinDepth": {"value":5.0, "rate":50.0, "change":1.0, "min": 1, "max": 10},
+    #"LmrMinMoves": {"value":2.0, "rate":50.0, "change":1.0, "min": 1, "max": 10},
+    #"LmrRedAm": {"value":1.0, "rate":50.0, "change":1.0, "min": 1, "max": 10}, # Prevents the 0 crash!
     #"NmpReduction": {"value":3.0, "rate":2.0, "change":1.0, "min": 1, "max": 10},
-    "AspirationWindowInitial": {"value":62.0, "rate":6000, "change":20.0, "min": 1, "max": 500},
-    "AspirationWindowMultiplier": {"value":1.75, "rate":15, "change":0.25, "min": 1, "max": 10.0},
-    "TimeAllocationDivisor": {"value":37.0, "rate":3000, "change":10.0, "min": 1, "max": 100},
-    "MaxTimeFraction": {"value":1.5, "rate":10.0, "change":0.5, "min": 1.0, "max": 10.0},
+    #"AspirationWindowInitial": {"value":62.0, "rate":6000, "change":20.0, "min": 1, "max": 500},
+    #"AspirationWindowMultiplier": {"value":1.75, "rate":15, "change":0.25, "min": 1, "max": 10.0},
+    #"TimeAllocationDivisor": {"value":37.0, "rate":3000, "change":10.0, "min": 1, "max": 100},
+    #"MaxTimeFraction": {"value":1.5, "rate":10.0, "change":0.5, "min": 1.0, "max": 10.0},
 }
 
 # --- Checkpoint handling ---
