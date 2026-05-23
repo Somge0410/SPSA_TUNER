@@ -60,7 +60,7 @@
     },
     "config_name": "config.json",
     "output": 0,
-    "seed": 15803120245056448511,
+    "seed": 5415873902206419146,
     "variant": 0,
     "type": 0,
     "gauntlet_seeds": 1,
@@ -104,15 +104,15 @@
                 ],
                 [
                     "FutilityMarginD1",
-                    "119"
+                    "114"
                 ],
                 [
                     "FutilityMarginD2",
-                    "518"
+                    "480"
                 ],
                 [
                     "FutilityMarginD3",
-                    "790"
+                    "400"
                 ]
             ],
             "limit": {
@@ -145,15 +145,15 @@
                 ],
                 [
                     "FutilityMarginD1",
-                    "286"
-                ],
-                [
-                    "FutilityMarginD2",
                     "268"
                 ],
                 [
+                    "FutilityMarginD2",
+                    "249"
+                ],
+                [
                     "FutilityMarginD3",
-                    "400"
+                    "759"
                 ]
             ],
             "limit": {
@@ -172,12 +172,12 @@
     ],
     "stats": {
         "Plus vs Minus": {
-            "wins": 1,
-            "losses": 1,
+            "wins": 0,
+            "losses": 0,
             "draws": 0,
             "penta_WW": 0,
             "penta_WD": 0,
-            "penta_WL": 1,
+            "penta_WL": 0,
             "penta_DD": 0,
             "penta_LD": 0,
             "penta_LL": 0
